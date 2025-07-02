@@ -1,0 +1,12 @@
+INSERT INTO raza (nombre_raza) VALUES 
+('Humano'),
+('Elfo'),
+('Enano'),
+('Orco');
+
+INSERT INTO rol (nombre_rol) VALUES ('usuario'), ('admin');
+
+INSERT INTO estado (nombre_estado, estado_base, origen_estado) VALUES 
+('Saludable', 'base', 'inicial'),
+('Enfermo', 'base', 'evento'),
+('Herido', 'base', 'combate');
