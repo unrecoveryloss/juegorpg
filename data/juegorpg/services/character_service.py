@@ -1,3 +1,5 @@
+import pymysql
+import pymysql.cursors
 from config.db import get_connection
 
 class CharacterService:
@@ -29,8 +31,41 @@ class CharacterService:
     def get_all_characters():
         try:
             conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor.execute("SELECT * FROM personaje")
+            with conn.cursor(pymysql.cursors.DictCursor) as cursor:
+                cursor.execute("""
+                    SELECT p.id_personaje, p.nombre_personaje, p.nivel,
+                           u.nombre_usuario as usuario,
+                           r.nombre_raza as raza,
+                           e.nombre_estado as estado
+                    FROM personaje p
+                    JOIN usuario u ON p.id_usuario = u.id_usuario
+                    JOIN raza r ON p.id_raza = r.id_raza
+                    JOIN estado e ON p.id_estado = e.id_estado
+                    ORDER BY p.id_personaje
+                """)
+                return cursor.fetchall()
+        except Exception as e:
+            return []
+        finally:
+            conn.close()
+
+    @staticmethod
+    def get_characters_by_user(nombre_usuario):
+        try:
+            conn = get_connection()
+            with conn.cursor(pymysql.cursors.DictCursor) as cursor:
+                cursor.execute("""
+                    SELECT p.id_personaje, p.nombre_personaje, p.nivel,
+                           u.nombre_usuario as usuario,
+                           r.nombre_raza as raza,
+                           e.nombre_estado as estado
+                    FROM personaje p
+                    JOIN usuario u ON p.id_usuario = u.id_usuario
+                    JOIN raza r ON p.id_raza = r.id_raza
+                    JOIN estado e ON p.id_estado = e.id_estado
+                    WHERE u.nombre_usuario = %s
+                    ORDER BY p.id_personaje
+                """, (nombre_usuario,))
                 return cursor.fetchall()
         except Exception as e:
             return []
@@ -41,8 +76,18 @@ class CharacterService:
     def get_character_by_id(character_id):
         try:
             conn = get_connection()
-            with conn.cursor() as cursor:
-                cursor.execute("SELECT * FROM personaje WHERE id_personaje = %s", (character_id,))
+            with conn.cursor(pymysql.cursors.DictCursor) as cursor:
+                cursor.execute("""
+                    SELECT p.id_personaje, p.nombre_personaje, p.nivel,
+                           u.nombre_usuario as usuario,
+                           r.nombre_raza as raza,
+                           e.nombre_estado as estado
+                    FROM personaje p
+                    JOIN usuario u ON p.id_usuario = u.id_usuario
+                    JOIN raza r ON p.id_raza = r.id_raza
+                    JOIN estado e ON p.id_estado = e.id_estado
+                    WHERE p.id_personaje = %s
+                """, (character_id,))
                 return cursor.fetchone()
         except Exception as e:
             return None

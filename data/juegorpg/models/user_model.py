@@ -13,11 +13,16 @@ class UserModel:
             conn.close()
 
     @staticmethod
-    def create_user(username, correo, hashed_password):
+    def create_user(usuario, correo, hashed_password, id_rol):
         conn = get_connection()
         try:
             with conn.cursor() as cursor:
                 sql = "INSERT INTO usuario (nombre_usuario, correo_usuario, contraseña_usuario, id_rol) VALUES (%s, %s, %s, %s)"
-                cursor.execute(sql, (username, correo, hashed_password, 1))
+                cursor.execute(sql, (usuario, correo, hashed_password, id_rol))
+                conn.commit()
+                return True, "Usuario creado exitosamente"
+        except Exception as e:
+            return False, str(e)
         finally:
             conn.close()
+

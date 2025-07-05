@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 from routes.auth_routes import auth_bp
+from routes.user_routes import user_bp
 from routes.character_routes import character_bp
 from routes.estado_routes import estado_bp
 from routes.raza_routes import raza_bp
@@ -14,7 +16,13 @@ from routes.personaje_equipo_routes import personaje_equipo_bp
 app = Flask(__name__)
 CORS(app)
 
+# Configuración de JWT
+app.config['JWT_SECRET_KEY'] = 'tu-clave-secreta-super-segura-aqui'  # En producción, usar variable de entorno
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False  # Tokens sin expiración para desarrollo
+jwt = JWTManager(app)
+
 app.register_blueprint(auth_bp, url_prefix='/auth')
+app.register_blueprint(user_bp, url_prefix='/users')
 app.register_blueprint(character_bp, url_prefix='/characters')  
 app.register_blueprint(estado_bp, url_prefix='/estado')
 app.register_blueprint(raza_bp, url_prefix='/raza')

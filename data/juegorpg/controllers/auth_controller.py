@@ -6,7 +6,9 @@ class AuthController:
         username = data.get('username')
         email = data.get('email')
         password = data.get('password')
-        success, message = AuthService.register(username, email, password)
+        id_rol = data.get('id_rol', 1)  
+
+        success, message = AuthService.register(username, email, password, id_rol)
         return {'success': success, 'message': message}
 
     @staticmethod

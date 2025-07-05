@@ -102,7 +102,7 @@ INSERT INTO raza (nombre_raza) VALUES
 ('Enano'),
 ('Orco');
 
-INSERT INTO rol (nombre_rol) VALUES ('usuario'), ('admin');
+INSERT INTO rol (nombre_rol) VALUES ('usuario'), ('gm');
 
 INSERT INTO estado (nombre_estado, estado_base, origen_estado) VALUES 
 ('Saludable', 'base', 'inicial'),
