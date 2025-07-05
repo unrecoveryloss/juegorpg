@@ -1,8 +1,10 @@
 # juegorpg
 Evaluación 4 de appdev, juego rpg
 
-# como instalar dependencias 
+
+# cómo instalar dependencias 
 pip install -r requirements.txt
+
 
 # ejecutar proyecto local desde la terminal python de vscode CON WAMP INICIADO
 una vez abierta la carpeta del proyecto, ejecutar comandos en este orden: 
@@ -15,12 +17,9 @@ python .\main.py
 esto iniciará el servidor de flask, por lo que luego continuaremos hacia postman
 para interactuar con el backend
 
-descripción de la interfaz ,---
-FALTA ESTO
 
 # Base de datos
-
-script /sql/init_db
+ejecutar el script /sql/init_db en phpMyAdmin
 
 # registro
 curl -X POST --location 'http://127.0.0.1:5000/auth/register' \
@@ -30,7 +29,6 @@ curl -X POST --location 'http://127.0.0.1:5000/auth/register' \
   "correo": "micorreo@dominio.com",
   "contraseña": "miclave123"
 }'
-
 
 
 # login 
