@@ -17,8 +17,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Configuración de JWT
-app.config['JWT_SECRET_KEY'] = 'tu-clave-secreta-super-segura-aqui'  # En producción, usar variable de entorno
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False  # Tokens sin expiración para desarrollo
+app.config['JWT_SECRET_KEY'] = 'tu-clave-secreta-super-segura-aqui' 
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False 
 jwt = JWTManager(app)
 
 app.register_blueprint(auth_bp, url_prefix='/auth')
