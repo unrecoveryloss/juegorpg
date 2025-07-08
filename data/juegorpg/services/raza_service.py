@@ -21,7 +21,7 @@ class RazaService:
         
         # Verificar si ya existe otra raza con ese nombre y distinto id
         existing = RazaModel.get_raza_by_nombre(nombre_raza)
-        if existing and existing['id_raza'] != id_raza:
+        if existing and existing[0] != id_raza:
             return False, "Ya existe una raza con ese nombre"
         
         return RazaModel.update_raza(id_raza, nombre_raza)
